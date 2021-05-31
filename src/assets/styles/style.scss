@@ -1,0 +1,496 @@
+@import './reset.scss';
+
+/* montserrat-regular - latin_cyrillic */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('../fonts/montserrat-v15-latin_cyrillic-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../fonts/montserrat-v15-latin_cyrillic-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* montserrat-600 - latin_cyrillic */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  src: local(''),
+       url('../fonts/montserrat-v15-latin_cyrillic-600.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../fonts/montserrat-v15-latin_cyrillic-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* montserrat-700 - latin_cyrillic */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: local(''),
+       url('../fonts/montserrat-v15-latin_cyrillic-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../fonts/montserrat-v15-latin_cyrillic-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* montserrat-800 - latin_cyrillic */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 800;
+  src: local(''),
+       url('../fonts/montserrat-v15-latin_cyrillic-800.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('../fonts/montserrat-v15-latin_cyrillic-800.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+*::selection {
+  background-color: #9c63f848;
+}
+
+input::-webkit-datetime-edit-minute-field:focus,
+input::-webkit-datetime-edit-hour-field:focus,
+input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus {
+  background-color: #9c63f848;
+}
+
+option:hover {
+  background-color: #9c63f848;; 
+}
+
+
+body {
+  background-color: #f8f8fa;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: #211536;
+  line-height: 20px;
+}
+
+.step {
+  &__wrapper {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  &__title {
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 49px;
+    margin-top: 100px;
+    color: #351768;
+  }
+}
+
+%input-form {
+  display: block;
+  width: 100%;
+  height: 58px;
+  margin-top: 10px;
+  padding: 18px 25px 20px;
+  font-weight: 400;
+  border: 1px solid #CDB1FB;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #211536;
+  outline: none;
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  &:focus {
+    border: 1px solid #9e88c2;
+  }
+}
+
+.step-form {
+  margin-top: 45px;
+  margin-bottom: 105px;
+
+  &__wrapper {
+    padding: 0 30px;
+    width: 100%;
+    background: #ffffff;
+  }
+
+  &__item {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+  &__item:first-child {
+    padding-top: 55px;
+  }
+
+  &__item-title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  &__item-wrapper {
+    margin-top: 30px;
+  }
+
+  &__input {
+    @extend %input-form;
+  }
+
+  &__block-wrapper {
+    display: inline-block;
+    position: relative;
+    max-width: 366px;
+    width: 100%;
+    margin-right: 20px;
+    margin-top: 30px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__input-tel,
+  &__input-email,
+  &__input-city {
+    @extend %input-form;
+  }
+
+  .photo-container {
+    position: relative;
+    &::after {
+      content: "";
+      background-image: url('../img/delete-photo-button.png');
+      position: absolute;
+      top: -13px;
+      left: 109px;
+      width: 30px;
+      height: 30px;
+      z-index: 5;
+      cursor: pointer;
+    }
+  }
+
+  &__photo-label {
+    margin-bottom: 10px;
+    font-size: 10px;
+    line-height: 14px;
+  }
+
+  &__photo-input {
+    display: none;
+  }
+
+  &__img-wrapper {
+    display: inline-block;
+    overflow: hidden;
+    height: 126px;
+    width: 126px;
+    border-radius: 4px;
+    margin-right: 0;
+  }
+
+  &__img {
+    position: relative;
+    width: 200%;
+    left: -30%;
+    top: -15%;
+    z-index: 1;
+  }
+
+  &__img-default {
+    cursor: pointer;
+  }
+
+  &__photo-desc {
+    margin-top: 10px;
+    font-size: 10px;
+    line-height: 14px;
+    font-weight: 400;
+    width: 128px;
+  }
+
+  &__item-textarea {
+    width: 100%;
+    max-width: 1140px;
+    height: 193px;
+    resize: none;
+    @extend %input-form;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  }
+
+  &__rating-address {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  &__rating-container,
+  &__address-container {
+    max-width: 560px;
+    width: 100%;
+    margin-top: 50px;
+  }
+
+  &__rating-select {
+    position: relative;
+    z-index: 2;
+    @extend %input-form;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+  }
+
+  &__rating-select-wrapper {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      background-image: url('../img/select-icon.svg');
+      height: 9px;
+      width: 15px;
+      right: 20px;
+      bottom: 25px;
+    }
+  }
+
+  &__address-input {
+    @extend %input-form;
+  }
+}
+
+.events {
+  margin-top: 15px;
+
+  &__event-duration {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    background: #FAF7FE;
+    border-radius: 4px;
+    width: 100%;
+    min-height: 130px;
+    padding: 0 25px 22px;
+    margin-bottom: 40px;
+  }
+
+  &__event-delete-button {
+    background-image: url('../img/delete-photo-button.png');
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    width: 30px;
+    height: 30px;
+    z-index: 5;
+    cursor: pointer;
+  }
+
+  &__event-date-title {
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+
+  &__event-date-input,
+  &__event-time-input {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    width: 254px;
+    height: 58px;
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid #CDB1FB;
+    color: #211536;
+    padding: 19px 10px 19px 19px;
+    &:focus {
+      border: 1px solid #9e88c2;
+    }
+    &::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      z-index: 3;
+      cursor: pointer;
+    }
+  }
+
+  &__event-time-input {
+    padding: 19px 10px 19px 163px;
+  }
+
+  &__event-time-input-container,
+  &__event-date-input-container {
+    position: relative;
+    margin-right: 20px;
+  }
+
+  &__event-date-input-container::after {
+    content: "";
+    background-image: url('../img/calendar-icon.svg');
+    width: 17.68px;
+    height: 16.2px;
+    top: 21px;
+    right: 16px;
+    position: absolute;
+    z-index: 2;
+  }
+
+  &__event-time-input-container::after {
+    content: "";
+    background-image: url('../img/clock-icon.svg');
+    top: 21px;
+    width: 16.2px;
+    height: 16.7px;
+    right: 16px;
+    position: absolute;
+    z-index: 2;
+  }
+
+  &__event-time-input-container:nth-child(2) {
+    margin-right: 0;
+  }
+
+  &__event-dash {
+    max-width: 22px;
+    width: 100%;
+    height: 2px;
+    background: #CDB1FB;
+    border-radius: 5px;
+    margin: 77px 5px 0;
+  }
+
+  &__new-event {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -25px;
+  }
+
+  &__new-event-dash {
+    max-width: 55px;
+    width: 100%;
+    height: 2px;
+    background: #CDB1FB;
+    border-radius: 5px;
+    margin: 77px 14px 0;
+  }
+
+  &__add-event-button {
+    margin-top: 35px;
+    width: 182px;
+    height: 58px;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    border: 1px solid #9B63F8;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color .3s;
+    &:active {
+      border: 1px solid #675880;
+      background-color: #9c63f888;
+    }
+  }
+}
+
+.nav-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 590px;
+  width: 100%;
+  position: relative;
+  padding-bottom: 45px;
+
+  %nav-buttons-base {
+    margin-top: 50px;
+    width: 285px;
+    height: 58px;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    border: 1px solid #9B63F8;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  &__reset {
+    @extend %nav-buttons-base;
+    outline: none;
+    color: #211536;
+    background-color: #ffffff;
+    &:active {
+      border: 1px solid #675880;
+      background-color: #9c63f888;
+    }
+  }
+
+  &__further {
+    @extend %nav-buttons-base;
+    text-align: center;
+    padding-top: 19px;
+    text-decoration: none;
+    background-color: #9B63F8;
+    color: #FFFFFF;
+    &:active {
+      border: 1px solid #675880;
+      background-color: #5b3992;
+    }
+  }
+
+  &__futher-deactivated {
+    pointer-events: none;
+    background-color: #7e758d;
+    color: rgb(184, 184, 184);
+  }
+}
+
+.error {
+  border-color: red;
+  background: #FDD;
+  transition: all .5s;
+}
+
+.error:focus {
+  background: #FFFFFF;
+}
+
+.error-text {
+  position: absolute;
+  color: red;
+  font-size: 13px;
+}
+
+.button-error-text {
+  bottom: 15px;
+}
+
+.nav-buttons__back {
+  @extend %nav-buttons-base;
+  outline: none;
+  color: #211536;
+  text-align: center;
+  padding-top: 19px;
+  text-decoration: none;
+  background-color: #ffffff;
+  &:active {
+    border: 1px solid #675880;
+    background-color: #9c63f888;
+  }
+}
+
+.nav-buttons__submit {
+  @extend %nav-buttons-base;
+  background-color: #9B63F8;
+  color: #FFFFFF;
+  &:active {
+    border: 1px solid #675880;
+    background-color: #5b3992;
+  }
+}
