@@ -1,6 +1,7 @@
 # app-for-creating-events
 
-Application for creating an event page
+Application for creating an event page.
+
 Used:
 - [Vue 3](https://v3.vuejs.org/ "Vue 3")
 - [Vue Router 4](https://next.router.vuejs.org/guide/ "Vue Router 4") for routing
