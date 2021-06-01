@@ -298,7 +298,7 @@ export default {
   validations: () => ({
     info: {
       org: { required, minLength: minLength(3) },
-      tel: { required, minLength: minLength(18) },
+      tel: { required, minLength: minLength(11) },
       email: { required, email },
       city: { required, minLength: minLength(2) },
       name: { required, minLength: minLength(2) },
