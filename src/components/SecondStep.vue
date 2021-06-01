@@ -264,8 +264,5 @@ export default {
   .event__rating {
     order: 1;
   }
-  .event__cover-wrapper {
-    height: 100%;
-  }
 }
 </style>
