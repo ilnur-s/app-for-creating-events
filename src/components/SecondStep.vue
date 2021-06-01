@@ -15,52 +15,62 @@
       <main class="step-form__event event">
         <div class="event__main">
           <div class="event__rating">
-            <span class="event__rating-span">16+</span>
+            <span class="event__rating-span">{{ $store.state.info.rating }}</span>
             <div class="event__rating-icon"></div>
           </div>
           <div class="event__info">
-            <h2 class="event__title">Чайный заголовок — писать не длиннее трёх строк</h2>
+            <h2 class="event__title">{{ $store.state.info.name }}</h2>
             <div class="event__info-item">
               <img src="../assets/img/geo-icon.svg" alt="geo">
-              <span class="event__info-span">г. Казань, ул. Волкова, д. 7/29</span>
+              <span class="event__info-span">
+                {{ `${$store.state.info.city}, ${$store.state.info.address}` }}
+              </span>
             </div>
-            <div class="event__info-item">
-              <img src="../assets/img/calendar-icon.svg" alt="calendar">
-              <span class="event__info-span">21 окт. 2019 (пт), 21 окт. 2019 (пт)</span>
-            </div>
-            <div class="event__info-item">
-              <img src="../assets/img/clock-icon.svg" alt="clock">
-              <span class="event__info-span">17:30, 16:30</span>
+            <div
+              v-for="(item, i) in $store.state.info.eventDates"
+              :key="i" class="event__info-block">
+              <div class="event__info-item">
+                <img src="../assets/img/calendar-icon.svg" alt="calendar">
+                <span class="event__info-span">
+                  {{ `${getNormalizeDate(item.startDate)}, ${getNormalizeDate(item.endDate)}` }}
+                </span>
+              </div>
+              <div class="event__info-item">
+                <img src="../assets/img/clock-icon.svg" alt="clock">
+                <span
+                  class="event__info-span"
+                >{{ `${item.startTime}, ${item.endTime}` }}</span>
+              </div>
             </div>
             <h3 class="event__contacts">Контакты</h3>
             <div class="event__contacts-item">
               <img src="../assets/img/phone-icon.svg" alt="phone">
-              <span class="event__contacts-span">+7 (999) 888-77-66</span>
+              <span class="event__contacts-span">{{ $store.state.info.tel }}</span>
             </div>
             <div class="event__contacts-item">
-              <img src="../assets/img/mail-icon.svg" alt="phone">
-              <span class="event__contacts-span">example@mail.com</span>
+              <img src="../assets/img/mail-icon.svg" alt="email">
+              <span class="event__contacts-span">{{ $store.state.info.email }}</span>
             </div>
             <div class="event__organizer">
               <h4 class="event__organizer-name">
-                Coca-Cola
+                {{ $store.state.info.org }}
               </h4>
               <span class="event__organizer-title">Организатор мероприятия</span>
             </div>
           </div>
           <div class="event__cover-wrapper">
-            <img class="event__cover" src="" alt="cover">
+            <img class="event__cover" :src="$store.state.info.file" alt="cover">
           </div>
         </div>
         <p class="event__desc desc">
-          {{ info.desc }}
+          {{ $store.state.info.desc }}
         </p>
       </main>
       <div class="nav-buttons">
-        <router-link class="nav-buttons__back" to="/">
+        <router-link class="nav-buttons__back" :to="{ name: 'FirstStep' }">
           Назад
         </router-link>
-        <button type="submit" class="nav-buttons__submit">
+        <button type="button" class="nav-buttons__submit">
           Отправить на модерацию
         </button>
       </div>
@@ -70,8 +80,20 @@
 
 <script>
 export default {
-  name: 'SecondStep',
-  props: ['info'],
+  data: () => ({
+    days: ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
+    month: ['янв.', 'фев.', 'мар.', 'апр.', 'мая', 'июн.', 'июл.', 'авг.', 'сен.', 'окт.', 'ноя.', 'дек'],
+  }),
+  methods: {
+    getNormalizeDate(str) {
+      const date = new Date(str);
+      const year = str.split('-')[0];
+      const day = str.split('-')[2];
+      const dayOfWeek = this.days[date.getDay()];
+      const monthOfYear = this.month[date.getMonth()];
+      return `${day} ${monthOfYear} ${year} (${dayOfWeek})`;
+    },
+  },
 };
 </script>
 
@@ -122,7 +144,6 @@ export default {
 
 .event__main {
   display: flex;
-  flex-wrap: wrap;
 }
 
 .event__rating {
@@ -137,19 +158,20 @@ export default {
   line-height: 22px;
   color: #FFFFFF;
   top: 13px;
-  left: 13px;
-  // margin-left: -24px;
+  left: 10px;
 }
 
 .event__rating-icon {
   width: 48px;
   height: 48px;
   background-color: #351767;
+  margin-right: 15px;
 }
 
 .event__info {
   display: flex;
   flex-direction: column;
+  max-width: 100%;
 }
 
 .event__title {
@@ -208,6 +230,20 @@ export default {
   color: #8E69CC;
 }
 
+.event__cover-wrapper {
+  margin-left: auto;
+  overflow: hidden;
+  width: 630px;
+  height: 420px;
+  border-radius: 4px;
+}
+
+.event__cover {
+  width: 120%;
+  left: -10%;
+  top: -15%;
+}
+
 .event__desc {
   margin-top: 30px;
 }
@@ -215,5 +251,18 @@ export default {
 .desc {
   font-weight: 400;
   line-height: 24px;
+}
+
+@media (max-width: 900px) {
+  .event__main {
+    flex-wrap: wrap;
+  }
+  .event__info,
+  .event__rating {
+    order: 1;
+  }
+  .event__cover-wrapper {
+    height: 100%;
+  }
 }
 </style>

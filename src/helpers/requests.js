@@ -11,9 +11,6 @@ const getEventRating = async () => {
   } catch (error) {
     alert(`Произошла ошибка загрузки данных, текст ошибки: ${error}`);
   }
-  if (!response) {
-    alert('Что-то пошло не так, пожалуйста, попробуйте перезагрузить странцу');
-  }
   return response;
 };
 

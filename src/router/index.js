@@ -4,14 +4,13 @@ import FirstStep from '../components/FirstStep.vue';
 const routes = [
   {
     path: '/',
-    name: 'First step',
+    name: 'FirstStep',
     component: FirstStep,
   },
   {
-    path: '/second-step',
+    path: '/',
     name: 'SecondStep',
     component: () => import('../components/SecondStep.vue'),
-    props: true,
   },
 ];
 

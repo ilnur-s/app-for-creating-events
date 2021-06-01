@@ -15,8 +15,7 @@
           type="text" class="step-form__input" id="step-form__input-organization"
           >
           <span class="error-text" v-if="v$.info.org.$error">
-            Необходимо ввести с прописной буквы фамилию,
-            имя и отчетство (если имеется) организатора
+            Необходимо ввести название организации
           </span>
         </div>
       </div>
@@ -74,7 +73,7 @@
             type="text" class="step-form__input" id="step-form__input-org-name"
           >
           <span class="error-text" v-if="v$.info.name.$error">
-            Необходимо ввести название организации
+            Необходимо ввести название мероприятия
           </span>
         </div>
       </div>
@@ -210,14 +209,16 @@
           </label>
           <div class="step-form__rating-select-wrapper">
             <select
+              @change="selectRating"
               name="rating"
               id="step-form__rating-select"
               class="step-form__rating-select"
             >
               <option
-                v-for="item in info.rating"
+                v-for="item in ratingList"
                 :key="item.id"
                 :value="item.title"
+                :selected="item.title === info.rating"
                 class="step-form__rating-option">{{ item.title }}</option>
             </select>
           </div>
@@ -239,7 +240,10 @@
       <div @click="showError" class="nav-buttons">
         <button @click="clearForms" class="nav-buttons__reset" type="reset">Отмена</button>
         <router-link
-          class="nav-buttons__further" :to="{ name: 'SecondStep', params: { info: info }}">
+          @click="goNextPage"
+          :class="{'nav-buttons__futher-deactivated': v$.$silentErrors.length }"
+          :to="{ name: 'SecondStep' }"
+          class="nav-buttons__further">
           Далее
         </router-link>
         <span class="error-text button-error-text" v-if="isError">
@@ -252,13 +256,9 @@
 
 <script>
 import { VMaskDirective } from 'v-slim-mask';
-import {
-  email, required, minLength,
-} from '@vuelidate/validators';
+import { email, required, minLength } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 import getEventRating from '../helpers/requests';
-
-const calculateWordsCount = (value) => /^([А-ЯA-Z]|[А-ЯA-Z][\x27а-яa-z]{1,}|[А-ЯA-Z][\x27а-яa-z]{1,}-([А-ЯA-Z][\x27а-яa-z]{1,}|(оглы)|(кызы)))\040[А-ЯA-Z][\x27а-яa-z]{1,}(\040[А-ЯA-Z][\x27а-яa-z]{1,})?$/.test(value);
 
 export default {
   name: 'FirstStep',
@@ -266,7 +266,8 @@ export default {
     mask: VMaskDirective,
   },
   async mounted() {
-    this.info.rating = (await getEventRating()).result;
+    this.info = this.$store.state.info;
+    this.ratingList = (await getEventRating()).result;
   },
   setup: () => ({
     v$: useVuelidate(),
@@ -281,7 +282,7 @@ export default {
       file: null,
       desc: '',
       eventDates: [],
-      rating: {},
+      rating: '',
       address: '',
     },
     editableEvenDate: {
@@ -290,11 +291,13 @@ export default {
       endDate: '',
       endTime: '',
     },
+    ratingList: [],
     isError: false,
+    selected: '',
   }),
   validations: () => ({
     info: {
-      org: { required, calculateWordsCount },
+      org: { required, minLength: minLength(3) },
       tel: { required, minLength: minLength(18) },
       email: { required, email },
       city: { required, minLength: minLength(2) },
@@ -328,14 +331,31 @@ export default {
       this.info.eventDates.splice(currentId, 1);
     },
     clearForms() {
-      this.info.file = null;
-      this.info.eventDates = [];
+      this.info = {
+        org: '',
+        tel: '',
+        email: '',
+        city: '',
+        name: '',
+        file: null,
+        desc: '',
+        eventDates: [],
+        rating: '',
+        address: '',
+      };
       this.editableEvenDate = {
         startDate: '',
         startTime: '',
         endDate: '',
         endTime: '',
       };
+      this.$store.commit('setState', this.info);
+    },
+    goNextPage() {
+      this.$store.commit('setState', this.info);
+    },
+    selectRating(e) {
+      this.info.rating = e.target.value;
     },
     statusInput(validation) {
       return {
