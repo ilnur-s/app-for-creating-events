@@ -4,6 +4,7 @@ Application for creating an event page.
 
 Used:
 - [Vue 3](https://v3.vuejs.org/ "Vue 3")
+- [Vuex 4](https://next.vuex.vuejs.org/ "Vuex 4")
 - [Vue Router 4](https://next.router.vuejs.org/guide/ "Vue Router 4") for routing
 - [Vuelidate 2](https://vuelidate-next.netlify.app/ "Vuelidate 2") for validation
 - [v-slim-mask](https://www.npmjs.com/package/v-slim-mask "v-slim-mask") library for input field masks.
