@@ -2,7 +2,7 @@
 const getEventRating = async () => {
   let response;
   try {
-    const request = await fetch('http://testwork.rdbx24.ru/api/');
+    const request = await fetch('https://app-json-file.vercel.app/');
     if (request.ok) {
       response = await request.json();
     } else {
